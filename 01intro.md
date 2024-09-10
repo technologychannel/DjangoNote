@@ -61,8 +61,76 @@ Go to virtual env and run this command.\
 ```bash
 django-admin startproject myweekroutine
 ```
+### Run Project
+```bash
+python manage.py runserver 
+```
+
+### Run on Different Port
+```bash
+python manage.py runserver 8181
+```
+
+
+### Project File Structure
+**manage.py** - A utility for interacting with Django project from command.
+
+### Inside myproject
+**settings.py** - Setting files for your project.
+**urls.py** - Define URL routing for project.
+**__init__.py** - Marks this directory as python package.
+**asgi.py** Configuration for ASGI [Asynchronous Server Gateway Interface]
+- **wsgi.py** - Configuration for WSGI [Web Server GateWay Interface]
+-- **db.sqlite** - Default SQlite database
+
+
+### Django App
+Django app is web application that does one thing. For e.g. blog, ecommerce, forum, etc.
+- Django project can contain multiple apps.
+- Apps are reusable
+
+### How to Create Django App
+```bash
+python manage.py startapp <appname>
+```
+
+### Project Vs App
+- **Project** is overall configuration that ties multiple apps together.
+
+- **App** is independent module/feature of project.
+
+
+### Inside App
+**__init__.py** - Marks this directory as python package.
+**admin.py** - Register models to apprear on Django admin interface.
+**apps.py** - Contain the configuration for app.
+**models.py** - Define Database models.
+**tests.py** - Used to write unit test for app.
+**views.py** - Logic for handling request and returning response.
+**migrations/**- Contains migration files for database changes.
 
 
 
+### Connect App to Project
+- Open settings.py and find INSTALLED_APPS list.
+- Add your new app to the list.
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'myapp',
+]
+```
 
 
+### URL
+Define URL routing for project.
+- https://technologychannel.org/ - Root URL
+- https://technologychannel.org/about/ - About URL
+
+### Views
+Logic for handling request and returning response. It can be function or class.
