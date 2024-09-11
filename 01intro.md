@@ -93,12 +93,23 @@ Django app is web application that does one thing. For e.g. blog, ecommerce, for
 ```bash
 python manage.py startapp <appname>
 ```
+```bash
+python manage.py startapp myapp
+```
 
 ### Project Vs App
 - **Project** is overall configuration that ties multiple apps together.
 
 - **App** is independent module/feature of project.
 
+
+### URL
+Define URL routing for project.
+- https://technologychannel.org/ - Root URL
+- https://technologychannel.org/about/ - About URL
+
+### Views
+Logic for handling request and returning response. It can be function or class.
 
 ### Inside App
 **__init__.py** - Marks this directory as python package.
@@ -126,11 +137,44 @@ INSTALLED_APPS = [
 ]
 ```
 
+### How to Define Views
+To define views first you need to import:
+```python
+from django.http import HttpResponse
+```
 
-### URL
-Define URL routing for project.
-- https://technologychannel.org/ - Root URL
-- https://technologychannel.org/about/ - About URL
+```python
+def index(request):
+    return HttpResponse("<h1> Welcome to My Website </h1>")
 
-### Views
-Logic for handling request and returning response. It can be function or class.
+def contact(request):
+    return HttpResponse("<h1>Welcome to Contact Page</h1>")
+```
+
+### After Define views What to do?
+Create file called `urls.py` and add urls.
+```python
+from . import views
+from django.urls import path
+
+urlpatterns = [
+    path('',views.index,name='homepage'),
+    path('contact',views.contact,name='contactpage'),
+]
+```
+
+### Define App Views To Project
+First go to project's `urls.py` and add the code:
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('myapp.urls')) # Add this
+]
+```
+### Run Project
+```bash
+python manage.py runserver 
+```
