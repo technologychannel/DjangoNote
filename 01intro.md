@@ -57,7 +57,7 @@ Optional
 
 
 ### How to Create First Project
-Go to virtual env and run this command.\
+Go to virtual env and run this command.
 ```bash
 django-admin startproject myweekroutine
 ```
@@ -175,6 +175,82 @@ urlpatterns = [
 ]
 ```
 ### Run Project
+```bash
+python manage.py runserver 
+```
+
+
+### Steps To Do While Create New Project
+1. Create virtualenv
+```bash
+virtualenv myenv
+```
+2. Activate virtualenv
+- On Windows [Bash]
+```bash
+source myenv/Scripts/activate
+```
+- On Mac
+```bash
+source myenv/bin/activate
+```
+
+3. Install Django
+```
+pip install django
+```
+4. Create Django Project
+```bash
+django-admin startproject myproject
+```
+5. Open Project on Vs Code and Activate Virtual Env
+6. Create App
+```bash
+python manage.py startapp myapp
+```
+7. Register App
+```python
+INSTALLED_APPS = [
+    'myapp',
+]
+```
+8. Define Views in App
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+
+def index(request):
+    return HttpResponse("<h1> Welcome to My Website </h1>")
+
+def contact(request):
+    return HttpResponse("<h1>Welcome to Contact Page</h1>")
+
+```
+9. Create `urls.py` file in app directory and create urls.
+```python
+from . import views
+from django.urls import path
+
+urlpatterns = [
+    path('',views.index,name='homepage'),
+    path('contact',views.contact,name='contactpage'),
+]
+```
+
+10. Define App views to project
+First go to project's `urls.py` and add the code:
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('myapp.urls')) # Add this
+]
+```
+11.  Run Project
 ```bash
 python manage.py runserver 
 ```
