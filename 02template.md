@@ -85,8 +85,72 @@ def index(request):
 
 
 ### Use Template Inheritance
+It allows us to define base template and extend it on child templates. First create base.html on templates/"your app name" folder
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html" >Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="service.html">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      {% block content %}{% endblock content %}
+</body>
+</html>
+```
+
+index.html code
+```html
+{% extends "htmlapp/base.html" %}
+
+{% block title %}Homepage{% endblock title %}
+
+
+{% block content %}
+<h1>Welcome to {{webname}} Website</h1>
+<h2>My New Students</h2>
+<li>
+    {% for name in names %}
+    <ul>{{name}}</ul>
+    {% endfor %}
+</li>
+{% endblock content %}
+```
+service.html code
+```html
+{% extends "htmlapp/base.html" %}
+
+{% block title %}Service{% endblock title %}
+
+
+{% block content %}
+<h1>Welcome to Service</h1>
+{% endblock content %}
+```
+
 
 ### Include Static Files
+
 
 
 
