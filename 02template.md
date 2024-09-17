@@ -13,12 +13,81 @@ Template is a text file that define the structure of that file, such as html pag
 ### How to Display HTML In Django
 - First create one folder named "templates" in your app directory
 - Inside templates folder create another folder "your app name"
-- Put your html file inside that "your app name" folder.
+- Put your html file inside that templates/"your app name" folder.
 - For e.g index.html
 - To show html page use following code:
 ```python
+# app views.py
+from django.shortcuts import render
+
 def index(request):
     return render(request, 'htmlapp/index.html')
 ``` 
+
+We use DTL [Django Template Language]. 
+### Pass Data To Templates
+1. Suppose this is HTML file called index.html on 
+htmlapp/index.html
+```html
+<!DOCTYPE html>
+<head>
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>Welcome to {{webname}} Website</h1>
+</body>
+</html>
+```
+2. Now We need to pass title and webname for this. You can use following code in views.
+```python
+def index(request):
+    context = {
+        'title': 'Bishworaj Poudel',
+        'webname': 'BRPS'
+    }
+    return render(request, 'htmlapp/index.html',context=context)
+
+```
+
+### Use Loop
+For e.g we have list of 10 names. We need to display all name in html list.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>Welcome to {{webname}} Website</h1>
+    <h2>My New Students</h2>
+    <li>
+        {% for name in names %}
+        <ul>{{name}}</ul>
+        {% endfor %}
+    </li>
+</body>
+</html>
+```
+
+```python
+def index(request):
+    context = {
+        'title': 'Bishworaj Poudel',
+        'webname': 'BRPS',
+        'names': ["Sita", "Ram", "Gita", "Hari"],
+    }
+    return render(request, 'htmlapp/index.html',context=context)
+```
+
+
+
+
+### Use Template Inheritance
+
+### Include Static Files
+
+
 
 
