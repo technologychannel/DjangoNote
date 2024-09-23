@@ -150,8 +150,53 @@ service.html code
 
 
 ### Include Static Files
+You can load css, js and images as static file in django. For that follow the step.
+1. Create static folder in your app directory.
+2. Inside your static folder create folder with appname
+3. Inside your <appname> folder create folder css and js
+4. Inside css folder place your css there and inside js folder 
+place your js there.
+5. Use that css and js, or images in your project or html template.
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Website</title>
+    <link rel="stylesheet" href="{% static 'brpapp/css/style.css' %}">
+</head>
+<body>
+    <h1>My Website</h1>
 
 
+    <script src="{% static 'brpapp/js/scripts.js' %}"></script>
+</body>
+</html>
+```
+
+
+### How to Add Images
+Place your images to folder static/<yourappname>/images. Use following code in templates.
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Website</title>
+    <link rel="stylesheet" href="{% static 'brpapp/css/style.css' %}">
+</head>
+<body>
+    <h1>My Website</h1>
+    
+    <img src="{% static 'brpapp/images/brp.jpg' %}" alt="My Photo">
+    <script src="{% static 'brpapp/js/scripts.js' %}"></script>
+</body>
+</html>
+```
 
 
 
