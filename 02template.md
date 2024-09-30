@@ -198,5 +198,11 @@ Place your images to folder static/<yourappname>/images. Use following code in t
 </html>
 ```
 
-
+### Filter
+1. {{value|capfirst}} : Capitalizes first letter of text.
+2. {{value|lower}}: Lower Case for text 
+3. {{value|upper}}: Upper Case for text 
+4. {{value|length}}: Find the length of text 
+5. {{value|title}}: Convert it to title case
+6. {{value|wordcount}}: Convert it to title case
 
