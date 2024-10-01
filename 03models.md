@@ -57,3 +57,56 @@ Now enter username, password, email and open
 http://127.0.0.1:8000/admin/
 - Enter your username and password
 - Now you can add, update, delete, view post.
+
+
+### Django ORM
+Django ORM allows youu to interfact with database using Python Code. To start:
+Type
+```bash
+python manage.py shell
+```
+
+### Create a New Post
+```python
+from blog.models import Post
+post = Post.objects.create(title="Hello", content="From Terminal")
+print(post)
+```
+### View Post
+- All
+```python
+from blog.models import Post
+posts = Post.objects.all()
+```
+- Single Post
+```python
+from blog.models import Post
+post = Post.objects.get(id=1)
+```
+
+### Update
+```python
+from blog.models import Post
+post = Post.objects.get(id=1)
+post.title = "My New Title"
+post.save()
+```
+
+### Delete
+```python
+from blog.models import Post
+post = Post.objects.get(id=3)
+post.delete()
+```
+
+### QuerySet Method and Filters
+```python
+from blog.models import Post
+postsasc= Post.objects.all().order_by('created_at') # Asc
+postsdesc= Post.objects.all().order_by('-created_at') #Desc
+first_five_post= Post.objects.all().[:5]
+count = Post.objects().all().count()
+```
+
+
+
