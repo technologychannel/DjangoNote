@@ -108,5 +108,50 @@ first_five_post= Post.objects.all().[:5]
 count = Post.objects().all().count()
 ```
 
+### How to Add Image In Models
+```python
+from django.db import models
+
+# Create your models here.
+class Blog(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    date = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+    image = models.ImageField(upload_to='blog/images/') # Add this line
+
+    def __str__(self):
+        return self.title
+```
+
+In post.html
+```html
+ <img height="500" width="700" src="{{blog.image.url}}" alt="{{blog.title}}">
+```
+
+In your setting.py in project directory
+```python
+import os
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```
+
+In your app urls.py
+```python
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('blog.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+or 
+
+```python
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
 
 
