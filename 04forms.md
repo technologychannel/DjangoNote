@@ -158,7 +158,7 @@ def feedback(request):
     return render(request, 'feedback.html', {'form': form})
 ```
 
-### Show Success Message
+### Show Success Message 
 ```python
 from django.shortcuts import render
 
@@ -177,7 +177,7 @@ def feedback(request):
     return render(request, 'feedback.html', {'form': form})
 ```
 
-### Show Success Message
+### Show Success Message HTML 
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -194,5 +194,11 @@ def feedback(request):
 </html>
 ```
 
+### Register Model in Admin
+1. In admin.py
+```python
+from django.contrib import admin
+from .models import Feedback
 
-
+admin.site.register(Feedback)
+```
