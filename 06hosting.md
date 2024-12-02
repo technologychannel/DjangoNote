@@ -55,8 +55,86 @@ pip install gunicorn
 sudo apt install nginx -y
 ```
 
-### Step 12: Create Gunicorn Service
+### Step 12: Test Gunicorn
+```bash
+gunicorn --bind 0.0.0.0:8000 yourproject.wsgi
+```
+
+### Step 13: Create a systemd Service File
 ```bash
 sudo nano /etc/systemd/system/gunicorn.service
 ```
+```ini
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=django_user
+Group=www-data
+WorkingDirectory=/home/django_user/yourproject
+ExecStart=/home/django_user/yourproject/venv/bin/gunicorn --workers 3 --bind unix:/home/django_user/yourproject/gunicorn.sock yourproject.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+```
+### Step 14: Reload and Enable Gunicorn Service
 ```bash
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+```
+
+### Step 15: Configure Nginx
+```bash
+sudo nano /etc/nginx/sites-available/yourproject
+```
+```ini
+server {
+    listen 80;
+    server_name your_domain.com www.your_domain.com;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/django_user/yourproject;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/django_user/yourproject/gunicorn.sock;
+    }
+}
+```
+### Step 16: Enable Nginx Configuration
+```bash
+sudo ln -s /etc/nginx/sites-available/yourproject /etc/nginx/sites-enabled
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+### Step 17: Secure With SSL
+```bash
+sudo apt install certbot python3-certbot-nginx -y
+sudo certbot --nginx -d your_domain.com -d www.your_domain.com
+```
+
+### Step 18: Update Django Settings
+```python
+ALLOWED_HOSTS = ['your_domain.com', 'www.your_domain.com']
+```
+
+### Step 19: Migrate Database
+```bash
+python manage.py migrate
+```
+
+### Step 20: Test Website
+```bash
+python manage.py runserver
+```
+
+### Step 21: Done
+
+
+
+
+
