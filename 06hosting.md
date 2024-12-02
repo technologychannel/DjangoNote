@@ -78,6 +78,23 @@ ExecStart=/home/django_user/yourproject/venv/bin/gunicorn --workers 3 --bind uni
 [Install]
 WantedBy=multi-user.target
 ```
+
+Demo
+```ini
+[Unit]
+Description=gunicorn daemon for mybiodata
+After=network.target
+
+[Service]
+User=yogesh
+Group=www-data
+WorkingDirectory=/home/yogesh/djangoproject/mybiodata
+ExecStart=/home/yogesh/djangoproject/venv/bin/gunicorn --workers 3 --bind unix:/home/yogesh/djangoproject/mybiodata/mybiodata.sock yogesh_bio.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ### Step 14: Reload and Enable Gunicorn Service
 ```bash
 sudo systemctl start gunicorn
