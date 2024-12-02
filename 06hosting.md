@@ -49,7 +49,14 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Step 11: Install Django and Other Required Packages
+### Step 11: Setup WebServer Using Nginx and Gunicorn
 ```bash
-pip install django gunicorn
+pip install gunicorn
+sudo apt install nginx -y
 ```
+
+### Step 12: Create Gunicorn Service
+```bash
+sudo nano /etc/systemd/system/gunicorn.service
+```
+```bash
