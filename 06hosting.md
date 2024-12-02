@@ -105,6 +105,11 @@ sudo systemctl enable gunicorn
 ```bash
 sudo nano /etc/nginx/sites-available/yourproject
 ```
+Demo
+```bash
+sudo nano /etc/nginx/sites-available/mybiodata
+```
+
 ```ini
 server {
     listen 80;
@@ -121,6 +126,33 @@ server {
     }
 }
 ```
+
+Demo 
+```bash
+sudo nano /etc/nginx/sites-available/mybiodata
+```
+
+```ini
+server {
+    listen 80;
+    server_name yogeshbharati.com www.yogeshbharati.com;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/yogesh/djangoproject/mybiodata;
+    }
+    location /media/ {
+        root /home/yogesh/djangoproject/mybiodata;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/yogesh/djangoproject/mybiodata/mybiodata.sock;
+    }
+}
+```
+
+
 ### Step 16: Enable Nginx Configuration
 ```bash
 sudo ln -s /etc/nginx/sites-available/yourproject /etc/nginx/sites-enabled
