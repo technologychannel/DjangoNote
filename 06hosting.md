@@ -6,61 +6,44 @@
 ssh root@your_droplet_ip
 ```
 ### Step 3: Update and Upgrade Packages
-```
+```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-### Step 4: Create a New User (For Security)
+### Step 4: Install Python, Pip, and Virtual Environment
 ```bash
-adduser your_username
-usermod -aG sudo your_username
-```
-### Step 5: Switch to new user
-```bash
-su - your_username
-```
-### Step 6: Enable Firewall
-```bash
-sudo ufw allow OpenSSH
-sudo ufw enable
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
+sudo apt install python3-pip python3-dev libpq-dev nginx curl -y
+sudo apt install python3-virtualenv -y
 ```
 
-### Step 7: Install Python, Pip, and Virtual Environment
-```bash
-sudo apt install python3 python3-pip python3-venv -y
-```
-
-### Step 8: Create a New Directory for Django Project
+### Step 5: Create a New Directory for Django Project
 ```bash
 mkdir django_project
 cd django_project
 ```
 
-### Step 9: Clone Django Project from GitHub
+### Step 6: Clone Django Project from GitHub
 ```bash
 git clone your_project_url
 ```
 
-### Step 10: Create Virtual Environment
+### Step 7: Create Virtual Environment
 ```bash
-python3 -m venv venv
+python3 -m virtualenv venv
 source venv/bin/activate
 ```
 
-### Step 11: Setup WebServer Using Nginx and Gunicorn
+### Step 8: Install Gunicorn
 ```bash
 pip install gunicorn
-sudo apt install nginx -y
 ```
 
-### Step 12: Test Gunicorn
+### Step 9: Test Gunicorn
 ```bash
 gunicorn --bind 0.0.0.0:8000 yourproject.wsgi
 ```
 
-### Step 13: Create a systemd Service File
+### Step 10: Create a systemd Service File
 ```bash
 sudo nano /etc/systemd/system/gunicorn.service
 ```
@@ -95,13 +78,13 @@ ExecStart=/home/yogesh/djangoproject/venv/bin/gunicorn --workers 3 --bind unix:/
 WantedBy=multi-user.target
 ```
 
-### Step 14: Reload and Enable Gunicorn Service
+### Step 11: Reload and Enable Gunicorn Service
 ```bash
 sudo systemctl start gunicorn
 sudo systemctl enable gunicorn
 ```
 
-### Step 15: Configure Nginx
+### Step 12: Configure Nginx
 ```bash
 sudo nano /etc/nginx/sites-available/yourproject
 ```
@@ -153,35 +136,35 @@ server {
 ```
 
 
-### Step 16: Enable Nginx Configuration
+### Step 13: Enable Nginx Configuration
 ```bash
 sudo ln -s /etc/nginx/sites-available/yourproject /etc/nginx/sites-enabled
 sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-### Step 17: Secure With SSL
+### Step 14: Secure With SSL
 ```bash
 sudo apt install certbot python3-certbot-nginx -y
 sudo certbot --nginx -d your_domain.com -d www.your_domain.com
 ```
 
-### Step 18: Update Django Settings
+### Step 15: Update Django Settings
 ```python
 ALLOWED_HOSTS = ['your_domain.com', 'www.your_domain.com']
 ```
 
-### Step 19: Migrate Database
+### Step 16: Migrate Database
 ```bash
 python manage.py migrate
 ```
 
-### Step 20: Test Website
+### Step 17: Test Website
 ```bash
 python manage.py runserver
 ```
 
-### Step 21: Done
+### Step 18: Done
 
 
 
