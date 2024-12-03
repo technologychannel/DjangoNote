@@ -35,7 +35,7 @@ source venv/bin/activate
 
 ### Step 8: Update Django Settings
 ```python
-ALLOWED_HOSTS = ['your_domain.com', 'www.your_domain.com']
+ALLOWED_HOSTS = ['132.168.1.231','your_domain.com', 'www.your_domain.com']
 ```
 
 
